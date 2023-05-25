@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zn-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>测试 CORS</title>
+</head>
+<body>
+<h1>测试 CORS</h1>
+<h3>简单请求</h3>
+<ol>
+  <li>
+    <button id="button1">一个普通的 GET 请求，后端无配置，跨域请求会失败</button>
+    <span id="text1"></span>
+  </li>
+  <li>
+    <button id="button2">一个普通的 GET 请求，后端配置 Access-Control-Allow-Origin</button>
+    <span id="text2"></span>
+  </li>
+  <li>
+    <button id="button3">一个普通的 GET 请求，后端配置 Access-Control-Allow-Origin</button>
+    <span id="text3"></span>
+  </li>
+  <li>
+    <button id="button4">一个普通的 POST 请求，后端配置 Access-Control-Allow-Origin</button>
+    <span id="text4"></span>
+  </li>
+  <li>
+    <button id="button5">一个普通的 POST 请求，后端配置 Access-Control-Allow-Origin</button>
+    <span id="text5"></span>
+  </li>
+</ol>
+<h3>复杂请求</h3>
+<ol>
+  <li>
+    <button id="button6">POST 复杂请求，后端仅配置 Access-Control-Allow-Origin: *，跨域请求会失败</button>
+    <span id="text6"></span>
+  </li>
+  <li>
+    <button id="button7">POST 复杂请求，后端配置针对复杂请求的 Header，跨域能成功</button>
+    <span id="text7"></span>
+  </li>
+</ol>
+</body>
+<script>
+  const $ = s => document.querySelector(s)
+  const writeText = ($s, t) => {
+    $s.innerText = t
+  }
+  $('#button1').addEventListener('click', () => {
+    const $text = $('#text1')
+    fetch('http://localhost:3001/1').then(res => res.text()).then(res => {
+      writeText($text, res)
+    }).catch(e => {
+      writeText($text, e.message)
+    })
+  })
+  $('#button2').addEventListener('click', () => {
+    const $text = $('#text2')
+    fetch('http://localhost:3001/2').then(res => res.text()).then(res => {
+      writeText($text, res)
+    }).catch(e => {
+      writeText($text, e.message)
+    })
+  })
+  $('#button3').addEventListener('click', () => {
+    const $text = $('#text3')
+    fetch('http://localhost:3001/3').then(res => res.text()).then(res => {
+      writeText($text, res)
+    }).catch(e => {
+      writeText($text, e.message)
+    })
+  })
+  $('#button4').addEventListener('click', () => {
+    const $text = $('#text4')
+    fetch('http://localhost:3001/4', {
+      method: 'post'
+    }).then(res => res.text()).then(res => {
+      writeText($text, res)
+    }).catch(e => {
+      writeText($text, e.message)
+    })
+  })
+  $('#button5').addEventListener('click', () => {
+    const $text = $('#text5')
+    fetch('http://localhost:3001/5', {
+      method: 'post'
+    }).then(res => res.text()).then(res => {
+      writeText($text, res)
+    }).catch(e => {
+      writeText($text, e.message)
+    })
+  })
+  $('#button6').addEventListener('click', () => {
+    const $text = $('#text6')
+    fetch('http://localhost:3001/6', {
+      method: 'post',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      })
+    }).then(res => res.text()).then(res => {
+      writeText($text, res)
+    }).catch(e => {
+      writeText($text, e.message)
+    })
+  })
+  $('#button7').addEventListener('click', () => {
+    const $text = $('#text7')
+    fetch('http://localhost:3001/7', {
+      method: 'post',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      })
+    }).then(res => res.text()).then(res => {
+      writeText($text, res)
+    }).catch(e => {
+      writeText($text, e.message)
+    })
+  })
+</script>
+</html>

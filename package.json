@@ -1,0 +1,19 @@
+{
+  "name": "exercise-cors",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run start:client & npm run start:server",
+    "start:client": "serve ./",
+    "start:server": "node-dev server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-dev": "^8.0.0",
+    "serve": "^14.2.0"
+  }
+}
